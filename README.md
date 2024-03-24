@@ -15,7 +15,7 @@ L'application permet aux utilisateurs de visualiser, ajouter, modifier et suppri
 
 ## Installation
 
-1. Cloner ce dépôt : `git clone https://github.com/votre-utilisateur/nom-du-projet.git`
+1. Cloner ce dépôt : `git clone[ https://Abderrahman2002/gestion-des-venets.gi](https://github.com/Abderrahman2002/gestion-des-evenements.git`
 2. Accéder au répertoire du projet : `cd nom-du-projet`
 3. Installer les dépendances : `composer install`
 4. Importer la base de données à partir du fichier `database.sql`.
