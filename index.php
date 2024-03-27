@@ -1,28 +1,38 @@
-    <?php
-    session_start();
-    // Vérifier si le formulaire a été soumis
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Vérifier les informations de connexion
-        $username = "admin";
-        $password = "admin";
+<?php
+session_start();
+include 'cnxDatabase.php'; // Assurez-vous d'inclure le fichier contenant la connexion à la base de données
 
-        // Récupérer les données saisies dans le formulaire
-        $input_username = $_POST['username'];
-        $input_password = $_POST['password'];
+// Vérifier si le formulaire a été soumis
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Récupérer les données saisies dans le formulaire
+    $input_login = $_POST['login'];
+    $input_password = $_POST['password'];
 
-        // Vérifier si les informations de connexion sont correctes
-        if ($input_username === $username && $input_password === $password) {
-            // Informations correctes, rediriger l'utilisateur vers une page de succès
-            $_SESSION['username'] = $username;
-            header("location: liste.php");
+    // Effectuer une requête SQL pour récupérer les informations de l'utilisateur
+    $sql = "SELECT * FROM utilisateur WHERE login = '$input_login'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Utilisateur trouvé dans la base de données
+        $row = $result->fetch_assoc();
+        // Vérifier si le mot de passe correspond
+        if ($input_password == $row['password']) {
+            // Mot de passe correct, enregistrer l'utilisateur dans la session et rediriger vers une page de succès
+            $_SESSION['login'] = $input_login;
+            header("location: liste.php"); // Rediriger vers la page liste.php après la connexion réussie
+            exit();
         } else {
-            // Informations incorrectes, rediriger l'utilisateur vers la page de connexion avec un message d'erreur
+            // Mot de passe incorrect, rediriger vers la page de connexion avec un message d'erreur
             header("location: index.html?error=invalid_credentials");
+            exit();
         }
+    } else {
+        // Utilisateur non trouvé dans la base de données, rediriger vers la page de connexion avec un message d'erreur
+        header("location: index.html?error=user_not_found");
+        exit();
     }
-    ?>
-
-
+}
+?>
 
     <!DOCTYPE html>
     <html lang="fr">
@@ -85,16 +95,17 @@
         <div class="container">
             <h2>Connexion</h2>
             <form action="index.php" method="post">
-                <div class="form-group">
-                    <label for="username">Nom d'utilisateur :</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Mot de passe :</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <button type="submit">Se connecter</button>
-            </form>
+    <div class="form-group">
+        <label for="login">Nom d'utilisateur :</label>
+        <input type="text" id="login" name="login" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+    <button type="submit">Se connecter</button>
+</form>
+
         </div>
     </body>
     </html>
