@@ -16,9 +16,9 @@ L'application permet aux utilisateurs de visualiser, ajouter, modifier et suppri
 ## Installation
 
 1. Cloner ce dépôt : `git clone[ https://Abderrahman2002/gestion-des-venets.gi](https://github.com/Abderrahman2002/gestion-des-evenements.git`
-2. Accéder au répertoire du projet : `cd nom-du-projet`
+2. Accéder au répertoire du projet : `cd gestion-des-evenements`
 3. Installer les dépendances : `composer install`
-4. Importer la base de données à partir du fichier `database.sql`.
+4. Importer la base de données à partir du fichier `DatabaseScripts.sql`.
 5. Configurer les paramètres de connexion à la base de données dans le fichier `cnxDatabase.php`.
 6. Accéder à l'application via un navigateur web.
 
